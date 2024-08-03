@@ -1,28 +1,32 @@
 "use client";
 import React from "react";
-import HomeDashboardNavbar from "./HomeDashboardNavbar";
 import Image from "next/image";
 import SidebarItem from "../Common/SidebarItem";
-import { homeSidebarList } from "@/constants/SidebarList";
+import { adminSidebarList } from "@/constants/SidebarList";
 import { ArrowLeftFromLine, X } from "lucide-react";
 import { Button } from "../ui/button";
 import { useRecoilState } from "recoil";
-import { homeDashSidebarAtom } from "@/store/sidebarStore";
+import { adminDashSidebarAtom } from "@/store/sidebarStore";
 import Link from "next/link";
 
-export default function HomeDashboardSidebar({
+export interface ItemListType {
+  name: string;
+  link: string;
+  icon: React.ReactElement;
+}
+
+export default function AdminSidebar({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [homeDashSidebar, setHomeDashSidebar] =
-    useRecoilState(homeDashSidebarAtom);
+  const [adminSidebar, setAdminSidebar] = useRecoilState(adminDashSidebarAtom);
 
   return (
     <div className="flex">
       <div
         className={`border-r h-screen z-[2000] transition-transform duration-500 ease-in-out lg:flex lg:relative lg:translate-x-0 absolute flex ${
-          homeDashSidebar ? "translate-x-0" : "-translate-x-full"
+          adminSidebar ? "translate-x-0" : "-translate-x-full"
         } flex-col w-[18rem] py-5 px-3 justify-between backdrop-blur-md`}
       >
         <div>
@@ -36,17 +40,18 @@ export default function HomeDashboardSidebar({
                 className="rounded-full w-16 aspect-square"
               />
             </Link>
+
             <Button
               variant={"outline"}
               size={"icon"}
               className="lg:hidden"
-              onClick={() => setHomeDashSidebar(!homeDashSidebar)}
+              onClick={() => setAdminSidebar(!adminSidebar)}
             >
               <X />
             </Button>
           </div>
           <div className="flex flex-col gap-y-2 mt-16">
-            {homeSidebarList.map((it, i) => (
+            {adminSidebarList.map((it, i) => (
               <SidebarItem
                 key={i}
                 icon={it.icon}
@@ -69,11 +74,13 @@ export default function HomeDashboardSidebar({
           </Button>
         </div>
       </div>
-      <div className="w-full lg:w-[calc(100vw-18rem)] h-screen">{children}</div>
-      {homeDashSidebar ? (
+      <div className="w-full lg:w-[calc(100vw-18rem)] h-screen grid grid-rows-[4rem_1fr]">
+        {children}
+      </div>
+      {adminSidebar ? (
         <div
           className="absolute backdrop-blur-sm inset-0 z-[1999] "
-          onClick={() => setHomeDashSidebar(false)}
+          onClick={() => setAdminSidebar(false)}
         />
       ) : null}
     </div>

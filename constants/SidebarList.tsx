@@ -1,6 +1,13 @@
-import { ItemListType } from "@/components/HomeDashboard/HomeDashboardSidebar";
 import CustomIcon from "@/components/ui/custom-icon";
-import { Album, NotepadText, Phone, ScrollText } from "lucide-react";
+import { ItemListType } from "@/types/ItemListType";
+import {
+  Album,
+  Blocks,
+  NotepadText,
+  Phone,
+  ScrollText,
+  UserPen,
+} from "lucide-react";
 
 export const homeSidebarList: ItemListType[] = [
   {
@@ -22,5 +29,17 @@ export const homeSidebarList: ItemListType[] = [
     name: "Contact",
     icon: <CustomIcon iconName={Phone} />,
     link: "/contact",
+  },
+];
+export const adminSidebarList: ItemListType[] = [
+  {
+    name: "Tutorial Builder",
+    icon: <CustomIcon iconName={Blocks} />,
+    link: "/admin/tutorial-builder",
+  },
+  {
+    name: "Manage Roles",
+    icon: <CustomIcon iconName={UserPen} />,
+    link: "/admin/manage-roles",
   },
 ];

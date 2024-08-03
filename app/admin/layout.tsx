@@ -1,7 +1,16 @@
-import React from 'react'
+import AdminNavbar from "@/components/AdminDashboard/AdminNavbar";
+import AdminSidebar from "@/components/AdminDashboard/AdminSidebar";
+import React from "react";
 
-export default function AdminDashboard() {
+export default function AdminDashboard({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <div>Admin Dashboard</div>
-  )
+    <AdminSidebar>
+      <AdminNavbar />
+      {children}
+    </AdminSidebar>
+  );
 }

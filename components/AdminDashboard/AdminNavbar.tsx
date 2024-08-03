@@ -16,28 +16,24 @@ import { Avatar, AvatarFallback } from "../ui/avatar";
 import { useRouter } from "next/navigation";
 import { Menu, Shield, User } from "lucide-react";
 import { useRecoilState } from "recoil";
-import { homeDashSidebarAtom } from "@/store/sidebarStore";
+import { adminDashSidebarAtom } from "@/store/sidebarStore";
 
-export default function HomeDashboardNavbar() {
+export default function AdminNavbar() {
   const session = useSession();
   const router = useRouter();
-  const [homeDashSidebar, setHomeDashSidebar] =
-    useRecoilState(homeDashSidebarAtom);
+  const [adminSidebar, setAdminSidebar] = useRecoilState(adminDashSidebarAtom);
 
   return (
     <HeadRoom>
       <div className="flex justify-between gap-5 items-center px-10 border-b relative h-16">
         <Menu
           className="lg:hidden cursor-pointer"
-          onClick={() => setHomeDashSidebar(!homeDashSidebar)}
+          onClick={() => setAdminSidebar(!adminSidebar)}
         />
         <div className="flex items-center gap-4 absolute right-10">
           <ModeToggle />
           {session.status === "unauthenticated" ? (
-            <Button
-              onClick={() => signIn()}
-              variant={"default"}
-            >
+            <Button onClick={() => signIn()} variant={"default"}>
               Login
             </Button>
           ) : (
