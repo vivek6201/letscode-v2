@@ -5,6 +5,7 @@ import {
   Blocks,
   NotepadText,
   Phone,
+  Rss,
   ScrollText,
   UserPen,
 } from "lucide-react";
@@ -38,8 +39,32 @@ export const adminSidebarList: ItemListType[] = [
     link: "/admin/tutorial-builder",
   },
   {
+    name: "Blog Builder",
+    icon: <CustomIcon iconName={Rss } />,
+    link: "/admin/blog-builder",
+  },
+  {
     name: "Manage Roles",
     icon: <CustomIcon iconName={UserPen} />,
     link: "/admin/manage-roles",
   },
 ];
+
+export const navList = [
+  {
+    name: "Home",
+    link:"/"
+  },
+  {
+    name: "Tutorials",
+    link:"/tutorials"
+  },
+  {
+    name: "Courses",
+    link:"/courses"
+  },
+  {
+    name: "Contact",
+    link:"/contact"
+  },
+]

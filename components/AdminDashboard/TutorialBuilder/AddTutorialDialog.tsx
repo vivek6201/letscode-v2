@@ -61,7 +61,7 @@ export default function AddTutorialDialog() {
           Add New <Plus size={16} />
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="z-[3000]">
         <DialogHeader>
           <DialogTitle>Add Tutorial</DialogTitle>
           <DialogDescription>

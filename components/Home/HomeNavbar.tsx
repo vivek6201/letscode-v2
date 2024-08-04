@@ -25,6 +25,7 @@ import { ModeToggle } from "../Common/ModeToogler";
 //   SheetTrigger,
 // } from "@/components/ui/sheet";
 import HighlightedText from "../Common/HighlightedText";
+import { navList } from "@/constants/SidebarList";
 
 const Navbar = () => {
   const session = useSession();
@@ -40,6 +41,17 @@ const Navbar = () => {
             Lets
             <HighlightedText text="Code" />
           </Link>
+
+          <div className="flex gap-5 items-center justify-center">
+            {navList.map((item, index) => {
+              return (
+                <Link href={item.link} key={index}>
+                  <p className="capitalize hover:underline">{item.name}</p>
+                </Link>
+              );
+            })}
+          </div>
+
           <div className="md:flex items-center gap-4 hidden">
             <ModeToggle />
             {session.status === "unauthenticated" ? (

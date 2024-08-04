@@ -14,7 +14,7 @@ export default function ItemCard({
   link: string;
 }) {
   return (
-    <div className="min-h-[200px] w-full group md:max-w-[450px] rounded-md border hover:ring dark:hover:bg-amber-950/5 ring-amber-800/10 transition-all duration-100 shadow flex flex-col justify-between p-5">
+    <div className="min-h-[220px] w-full group md:max-w-full rounded-md border hover:ring dark:hover:bg-amber-950/5 ring-amber-800/10 transition-all duration-100 shadow flex flex-col justify-between p-5">
       <div className="flex flex-col gap-y-1">
         <p className="font-semibold text-2xl">{title}</p>
         <p className="text-sm opacity-75">{description}</p>

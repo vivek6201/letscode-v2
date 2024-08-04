@@ -21,7 +21,7 @@ export default function HomeDashboardSidebar({
   return (
     <div className="flex">
       <div
-        className={`border-r h-screen z-[2000] transition-transform duration-500 ease-in-out lg:flex lg:relative lg:translate-x-0 absolute flex ${
+        className={`border-r h-screen z-20 transition-transform duration-500 ease-in-out lg:flex lg:relative lg:translate-x-0 absolute flex ${
           homeDashSidebar ? "translate-x-0" : "-translate-x-full"
         } flex-col w-[18rem] py-5 px-3 justify-between backdrop-blur-md`}
       >
@@ -72,7 +72,7 @@ export default function HomeDashboardSidebar({
       <div className="w-full lg:w-[calc(100vw-18rem)] h-screen">{children}</div>
       {homeDashSidebar ? (
         <div
-          className="absolute backdrop-blur-sm inset-0 z-[1999] "
+          className="absolute backdrop-blur-sm inset-0 z-10 "
           onClick={() => setHomeDashSidebar(false)}
         />
       ) : null}

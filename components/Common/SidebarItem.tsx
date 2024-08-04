@@ -25,7 +25,7 @@ export default function SidebarItem({
       } items-center`}
     >
       {icon}
-      <p className="capitalize text-sm font-tilli">{title}</p>
+      <p className="capitalize text-sm font-tilli select-none">{title}</p>
     </Link>
   );
 }

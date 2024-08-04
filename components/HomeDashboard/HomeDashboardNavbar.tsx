@@ -26,12 +26,12 @@ export default function HomeDashboardNavbar() {
 
   return (
     <HeadRoom>
-      <div className="flex justify-between gap-5 items-center px-10 border-b relative h-16">
+      <div className="flex justify-between gap-5 items-center px-5 md:px-10 border-b relative h-16">
         <Menu
           className="lg:hidden cursor-pointer"
           onClick={() => setHomeDashSidebar(!homeDashSidebar)}
         />
-        <div className="flex items-center gap-4 absolute right-10">
+        <div className="flex items-center gap-4 absolute right-5 md:right-10">
           <ModeToggle />
           {session.status === "unauthenticated" ? (
             <Button

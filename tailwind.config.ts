@@ -21,6 +21,7 @@ const config = {
       fontFamily: {
         "roboto-mono": ["Roboto Mono", "monospace"],
         "tilli": ["Titillium Web", "sans-serif"],
+        "kanit":["Kanit", "sans-serif"]
       },
       colors: {
         border: "hsl(var(--border))",

@@ -1,4 +1,4 @@
-import ChaptersList from "@/components/AdminDashboard/TutorialBuilder/ChaptersList";
+import ChaptersList from "@/components/AdminDashboard/TutorialBuilder/Chapter/ChaptersList";
 import { Metadata } from "next";
 import React from "react";
 
@@ -13,7 +13,7 @@ export default function TutorialBuilderLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="">
+    <div className="grid grid-cols-[20rem_1fr]">
       <ChaptersList />
       {children}
     </div>

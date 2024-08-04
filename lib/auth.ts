@@ -138,11 +138,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth(() => {
         },
       },
       adapter,
-      // pages: {
-      //   error: "/login",
-      //   signIn: "/login",
-      //   newUser: "/",
-      // },
+      pages: {
+        error: "/login",
+        signIn: "/login",
+        newUser: "/",
+      },
       // debug: process.env.NODE_ENV === "development",
       trustHost: true,
       events: {

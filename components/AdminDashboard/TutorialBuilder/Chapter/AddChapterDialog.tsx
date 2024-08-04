@@ -26,7 +26,7 @@ import { useForm } from "react-hook-form";
 import { addChapterValidations } from "@/validations/tutorialValidations";
 import { z } from "zod";
 
-export default function AddChapterDialog() {
+export default function AddChapterDialog({trigger}:{trigger:React.ReactNode}) {
   const modalRef = useRef<HTMLButtonElement | null>(null);
 
   const handleModelCloseref = () => {
@@ -57,11 +57,9 @@ export default function AddChapterDialog() {
     <Dialog>
       <DialogClose ref={modalRef} />
       <DialogTrigger asChild>
-        <Button className="flex gap-2 items-center">
-          Add New <Plus size={16} />
-        </Button>
+        {trigger}
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="z-[3000]">
         <DialogHeader>
           <DialogTitle>Add Chapter</DialogTitle>
           <DialogDescription>
