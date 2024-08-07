@@ -11,7 +11,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Plus } from "lucide-react";
 import {
   Dialog,
   DialogClose,
@@ -25,8 +24,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { addChapterValidations } from "@/validations/tutorialValidations";
 import { z } from "zod";
+import createChapter from "@/actions/admin/Tutorials/chapterActions";
+import { toast } from "sonner";
 
-export default function AddChapterDialog({trigger}:{trigger:React.ReactNode}) {
+export default function AddChapterDialog({
+  trigger,
+  tutorialSlug,
+}: {
+  trigger: React.ReactNode;
+  tutorialSlug: string;
+}) {
   const modalRef = useRef<HTMLButtonElement | null>(null);
 
   const handleModelCloseref = () => {
@@ -35,30 +42,30 @@ export default function AddChapterDialog({trigger}:{trigger:React.ReactNode}) {
 
   const form = useForm<z.infer<typeof addChapterValidations>>({
     resolver: zodResolver(addChapterValidations),
+    defaultValues: {
+      chapterName: "",
+      chapterNo: 0,
+    },
   });
 
   async function onSubmit(values: z.infer<typeof addChapterValidations>) {
-    // try {
-    //   const res = await axios.post(url.tutorialUrl, {
-    //     ...values,
-    //   });
-    //   if (res.status === 201) {
-    //     handleModelCloseref();
-    //     form.reset();
-    //     toast({
-    //       title: "Tutorial created succesfully!",
-    //       draggable: true,
-    //     });
-    //   }
-    // } catch (error) {}
+    // console.log({ values, tutorialSlug });
+    const { success } = await createChapter(values, tutorialSlug);
+
+    if (!success) {
+      toast.error("Failed to create chapter");
+      return;
+    }
+
+    toast.success("Tutorial Created Successfully!");
+    handleModelCloseref();
+    return;
   }
 
   return (
     <Dialog>
       <DialogClose ref={modalRef} />
-      <DialogTrigger asChild>
-        {trigger}
-      </DialogTrigger>
+      <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent className="z-[3000]">
         <DialogHeader>
           <DialogTitle>Add Chapter</DialogTitle>
@@ -76,10 +83,7 @@ export default function AddChapterDialog({trigger}:{trigger:React.ReactNode}) {
                 <FormItem>
                   <FormLabel>Chapter Name</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Enter Name of the Chapter"
-                      {...field}
-                    />
+                    <Input placeholder="Enter Name of the Chapter" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -96,6 +100,9 @@ export default function AddChapterDialog({trigger}:{trigger:React.ReactNode}) {
                       placeholder="Enter Serial No."
                       {...field}
                       type="number"
+                      onChange={(e) => {
+                        field.onChange(Number(e.target.value));
+                      }}
                     />
                   </FormControl>
                   <FormMessage />

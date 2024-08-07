@@ -1,8 +1,11 @@
 import { z } from "zod";
+import { Status } from "@prisma/client";
 
 export const addTutorialValidations = z.object({
   tutorialName: z.string().min(1),
   slug: z.string(),
+  description: z.string().min(10),
+  status: z.nativeEnum(Status).default(Status.Draft),
 });
 
 export const addChapterValidations = z.object({

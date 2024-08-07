@@ -12,6 +12,11 @@ enum Role {
   User
 }
 
+enum Status {
+  Draft
+  Published
+}
+
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -71,16 +76,18 @@ model Tutorials {
   title       String
   description String
   slug        String    @unique
+  status      Status    @default(Draft)
   chapter     Chapter[]
-  topics      Topic[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Chapter {
-  id          Int    @id @default(autoincrement())
-  chapterName String
+  id           Int     @id @default(autoincrement())
+  chapterName  String
+  sortingOrder Int
+  topics       Topic[]
 
   Tutorials   Tutorials @relation(fields: [tutorialsId], references: [id])
   tutorialsId Int
@@ -90,14 +97,16 @@ model Chapter {
 }
 
 model Topic {
-  id          Int    @id @default(autoincrement())
-  topicName   String
-  description String
-  slug        String @unique
-  content     String
+  id           Int    @id @default(autoincrement())
+  topicName    String
+  description  String
+  slug         String @unique
+  content      String
+  sortingOrder Int
+  status       Status @default(Draft)
 
-  Tutorials   Tutorials @relation(fields: [tutorialsId], references: [id])
-  tutorialsId Int
+  chapter   Chapter @relation(fields: [chapterId], references: [id])
+  chapterId Int
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,9 +24,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { addTutorialValidations } from "@/validations/tutorialValidations";
 import { z } from "zod";
+import { Textarea } from "@/components/ui/textarea";
+import createTutorial from "@/actions/admin/Tutorials/tutorialActions";
+import { toast } from "sonner";
 
 export default function AddTutorialDialog() {
-
   const modalCloseRef = useRef<HTMLButtonElement | null>(null);
 
   const handleModelCloseref = () => {
@@ -35,22 +37,30 @@ export default function AddTutorialDialog() {
 
   const form = useForm<z.infer<typeof addTutorialValidations>>({
     resolver: zodResolver(addTutorialValidations),
+    defaultValues: {
+      description: "",
+      slug: "",
+      tutorialName: "",
+    },
   });
 
   async function onSubmit(values: z.infer<typeof addTutorialValidations>) {
-    // try {
-    //   const res = await axios.post(url.tutorialUrl, {
-    //     ...values,
-    //   });
-    //   if (res.status === 201) {
-    //     handleModelCloseref();
-    //     form.reset();
-    //     toast({
-    //       title: "Tutorial created succesfully!",
-    //       draggable: true,
-    //     });
-    //   }
-    // } catch (error) {}
+    const { error, success } = await createTutorial(values);
+
+    if (success) {
+      handleModelCloseref();
+      form.reset();
+      toast.success("tutorial Created Successfully", {
+        dismissible: true,
+      });
+    }
+
+    if (error) {
+      console.log({ error });
+      toast.error("Error while creating tutorial", {
+        dismissible: true,
+      });
+    }
   }
 
   return (
@@ -80,6 +90,22 @@ export default function AddTutorialDialog() {
                   <FormControl>
                     <Input
                       placeholder="Enter Name of the tutorial"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Enter a short description of the tutorial"
                       {...field}
                     />
                   </FormControl>

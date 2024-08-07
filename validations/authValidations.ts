@@ -1,4 +1,5 @@
 import { z } from "zod";
+import {Role} from "@prisma/client"
 
 export const loginSchema = z.object({
   email: z.string().email(),
@@ -11,7 +12,7 @@ export const registerSchema = z
     lastName: z.string().min(3),
     email: z.string().email(),
     password: z.string().min(3),
-    role: z.string().optional(),
+    role: z.string().default(Role.User),
     confirmPassword: z.string().min(3),
   })
   .refine((data) => data.password === data.confirmPassword, {
