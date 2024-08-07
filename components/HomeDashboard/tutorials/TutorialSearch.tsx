@@ -12,22 +12,38 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from "@/components/ui/command";
+import { $Enums } from "@prisma/client";
 
-export default function TutorialSearch() {
+export default function TutorialSearch({
+  tutorials,
+}: {
+  tutorials: ({
+    _count: {
+      chapter: number;
+    };
+  } & {
+    id: number;
+    title: string;
+    description: string;
+    slug: string;
+    status: $Enums.Status;
+    createdAt: Date;
+    updatedAt: Date;
+  })[];
+}) {
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault()
-        setDialogOpen((open) => !open)
+        e.preventDefault();
+        setDialogOpen((open) => !open);
       }
-    }
- 
-    document.addEventListener("keydown", down)
-    return () => document.removeEventListener("keydown", down)
-  }, [])
+    };
 
+    document.addEventListener("keydown", down);
+    return () => document.removeEventListener("keydown", down);
+  }, []);
 
   return (
     <div>
@@ -52,6 +68,11 @@ export default function TutorialSearch() {
         <CommandInput placeholder="Type a command or search..." />
         <CommandList>
           <CommandEmpty>No results found</CommandEmpty>
+          <CommandGroup heading="Tutorials">
+            {tutorials.map((item) => (
+              <CommandItem>{item.title}</CommandItem>
+            ))}
+          </CommandGroup>
         </CommandList>
       </CommandDialog>
     </div>

@@ -8,7 +8,9 @@ export default function ItemCard({
   title,
   description,
   link,
+  count
 }: {
+  count: number;
   title: string;
   description: string;
   link: string;
@@ -20,7 +22,7 @@ export default function ItemCard({
         <p className="text-sm opacity-75">{description}</p>
       </div>
       <div className="flex justify-between items-center w-full">
-        <p className="text-sm">11 Chapters</p>
+        <p className="text-sm">{count} Chapters</p>
         <Link href={link}>
           <Button className="flex gap-2">
             Explore{" "}
