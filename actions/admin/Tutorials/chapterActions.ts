@@ -136,6 +136,8 @@ export const updateChapter = async (
     };
   }
 };
+
+
 export const deleteChapter = async (chapterId: string) => {
     
 };

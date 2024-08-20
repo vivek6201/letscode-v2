@@ -8,13 +8,15 @@ export const metadata: Metadata = {
 };
 
 export default function TutorialBuilderLayout({
+  params,
   children,
 }: {
+  params: { slug: string };
   children: React.ReactNode;
 }) {
   return (
     <div className="grid grid-cols-[20rem_1fr]">
-      <ChaptersList />
+      <ChaptersList tutorialSlug={params.slug}/>
       {children}
     </div>
   );

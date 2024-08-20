@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React from "react";
 import AddChapterDialog from "@/components/AdminDashboard/TutorialBuilder/Chapter/AddChapterDialog";
 import ChapterCard from "@/components/AdminDashboard/TutorialBuilder/Chapter/ChapterCard";
 import { Button } from "@/components/ui/button";
@@ -54,21 +54,18 @@ export default function page({ params }: { params: { slug: string } }) {
           <div className="pt-16 grid md:grid-cols-2 xl:grid-cols-3 gap-5 ">
             {/* Grid for all tutorials card listed */}
             {data.chapters.map(
-              (
-                it: {
-                  chapterName: string;
-                  id: string;
-                  tutorialsId: string;
-                  _count: { topics: string };
-                },
-                i: number
-              ) => (
+              (it: {
+                chapterName: string;
+                id: string;
+                tutorialsId: string;
+                _count: { topics: string };
+              }) => (
                 <ChapterCard
                   title={it.chapterName}
                   description=""
                   topicCount={it._count.topics}
                   chapterId={it.id}
-                  key={i}
+                  key={it.id}
                 />
               )
             )}

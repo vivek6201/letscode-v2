@@ -67,10 +67,12 @@ export default function TutorialSearch({
       <CommandDialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <CommandInput placeholder="Type a command or search..." />
         <CommandList>
-          <CommandEmpty>No results found</CommandEmpty>
+          {tutorials.length === 0 ? (
+            <CommandEmpty>No results found</CommandEmpty>
+          ) : null}
           <CommandGroup heading="Tutorials">
             {tutorials.map((item) => (
-              <CommandItem>{item.title}</CommandItem>
+              <CommandItem key={item.id}>{item.title}</CommandItem>
             ))}
           </CommandGroup>
         </CommandList>

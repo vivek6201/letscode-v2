@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
 import { Button } from "../../../ui/button";
-import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function ChapterCard({
   title,
@@ -15,7 +15,8 @@ export default function ChapterCard({
   topicCount: string;
   chapterId: string;
 }) {
-  
+  const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <div className="min-h-[220px] w-full group md:max-w-full rounded-md border hover:ring dark:hover:bg-amber-950/5 ring-amber-800/10 transition-all duration-100 shadow flex flex-col justify-between p-5">
@@ -25,7 +26,7 @@ export default function ChapterCard({
       </div>
       <div className="flex justify-between items-center w-full">
         <p className="text-sm">{topicCount} Topics</p>
-        <Button className="flex gap-2">
+        <Button className="flex gap-2" onClick={() => router.push(`${pathname}/new-topic`)}>
           Explore{" "}
           <ChevronRight
             className="group-hover:translate-x-1 duration-200 transition-all"

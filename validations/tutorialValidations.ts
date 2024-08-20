@@ -20,4 +20,5 @@ export const addTopicsValidations = z.object({
   content: z.string().min(10),
   slug: z.string().min(1),
   topicNo: z.number(),
+  description: z.string()
 });
