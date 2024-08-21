@@ -56,7 +56,7 @@ const TutorialTable = () => {
                 </TableCell>
                 <TableCell>{item.status}</TableCell>
                 <TableCell className="text-right">
-                  <Link href={`/admin/tutorial-builder/${item.slug}`}>
+                  <Link href={`/admin/tutorial-builder/${item.id}`}>
                     <Button variant={"link"}>View</Button>
                   </Link>
                 </TableCell>

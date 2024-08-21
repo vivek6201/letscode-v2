@@ -19,7 +19,7 @@ export default function TutorialSearch({
 }: {
   tutorials: ({
     _count: {
-      chapter: number;
+      tutorialContent: number;
     };
   } & {
     id: number;
