@@ -42,7 +42,7 @@ export default async function page() {
               description={it.description}
               link={`/tutorials/${it.slug}`}
               key={it.id}
-              count={it._count.chapter}
+              count={1}
             />
           );
         })}
