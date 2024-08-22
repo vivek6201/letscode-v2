@@ -16,7 +16,7 @@ export default function FolderView({
   
   const router = useRouter();
 
-  let updatedRoute = `/admin/tutorial-builder/${tutorialId}`;
+  let updatedRoute = `/tutorial/${tutorialId}`;
 
   for (let i = 0; i < rest.length; i++) {
     updatedRoute += `/${rest[i]}`;
