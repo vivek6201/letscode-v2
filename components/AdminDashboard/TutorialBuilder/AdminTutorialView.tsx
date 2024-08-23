@@ -21,9 +21,8 @@ export default function AdminTutorialView({
   }
 
   return (
-    <div>
-      Tutorial content
-      <div className="mx-auto grid max-w-screen-xl cursor-pointer grid-cols-1 justify-between gap-5 p-4 md:grid-cols-3">
+    <div className="flex flex-col">
+      <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5 ">
         {tutorialContent?.map(
           (content: { image: string; id: number; title: string }) => (
             <ContentCard
