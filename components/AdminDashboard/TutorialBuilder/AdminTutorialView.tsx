@@ -10,7 +10,7 @@ export default function AdminTutorialView({
 }: {
   rest: string[];
   tutorialId: number
-  tutorialContent: { title: string; image: string; id: number }[];
+  tutorialContent: { title: string; image: string; id: number, description: string }[];
 }) {
 
   const router = useRouter();
@@ -24,10 +24,11 @@ export default function AdminTutorialView({
     <div className="flex flex-col">
       <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5 ">
         {tutorialContent?.map(
-          (content: { image: string; id: number; title: string }) => (
+          (content) => (
             <ContentCard
               type="Folder"
               title={content.title}
+              description={content.description ?? ""}
               image={content.image || ''}
               onClick={() => {
                 router.push(`${updatedRoute}/${content.id}`);

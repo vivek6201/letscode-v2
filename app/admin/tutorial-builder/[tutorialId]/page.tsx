@@ -1,6 +1,5 @@
 import AddTutorialFolder from "@/components/AdminDashboard/TutorialBuilder/AddTutorialFolder";
 import AdminTutorialView from "@/components/AdminDashboard/TutorialBuilder/AdminTutorialView";
-import TutorialView from "@/components/Common/TutorialView";
 import {
   ChildTutorialContent,
   getFullTutorialData,
@@ -28,6 +27,7 @@ export default async function page({
   return (
     <div className="p-10">
       <AddTutorialFolder
+        rest={rest}
         tutorial={tutorial}
         tutorialId={Number(tutorialId)}
         parentContentId={parseFloat(rest[rest.length - 1])}
@@ -39,6 +39,7 @@ export default async function page({
             title: x?.title ?? "",
             image: x?.thumbnail ?? "",
             id: x?.id || 0,
+            description: x?.description ?? "",
           })) || []
         }
         tutorialId={Number(tutorialId)}

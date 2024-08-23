@@ -174,3 +174,23 @@ export const getFullTutorialData = async (
 
   return rootContent;
 };
+
+export const getCurrentContent = async (contentId: number) => {
+  //add cache
+  try {
+    const content = await prisma.content.findUnique({
+      where: {
+        id: contentId,
+      },
+      include: {
+        topicMetadata: true,
+      },
+    });
+
+    return content;
+  } catch (error) {
+    return null;
+  }
+};
+
+

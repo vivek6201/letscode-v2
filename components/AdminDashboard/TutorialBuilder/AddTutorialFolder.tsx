@@ -15,12 +15,16 @@ import { useForm } from "react-hook-form";
 import { addFolderValidations } from "@/validations/tutorialValidations";
 import { z } from "zod";
 import FolderContentForm from "./Forms/FolderContentForm";
+import { useRouter } from "next/navigation";
 
 export default function AddTutorialFolder({
+  rest,
   tutorial,
   tutorialId,
   parentContentId,
+  currentContent,
 }: {
+  rest: string[];
   tutorial: {
     id: number;
     title: string;
@@ -32,8 +36,10 @@ export default function AddTutorialFolder({
   } | null;
   tutorialId: number;
   parentContentId: number;
+  currentContent?: { title: string; id: number };
 }) {
   const dialogRef = useRef<null | HTMLButtonElement>(null);
+  const router = useRouter();
 
   //used to open dialog box
   const handleDialogRef = () => {
@@ -41,13 +47,34 @@ export default function AddTutorialFolder({
     dialogRef.current.click();
   };
 
+  let updatedRoute = `/admin/tutorial-builder/${tutorialId}`;
+
+  for (let i = 0; i < rest.length; i++) {
+    updatedRoute += `/${rest[i]}`;
+  }
+
+  const contentRouteHandler = () => {
+    updatedRoute += "/new-topic";
+
+    //pushing user to add new topic route
+    router.push(updatedRoute);
+  };
+
   return (
     <>
       <div className="mb-10 flex justify-between items-center">
-        <p className="text-xl md:text-2xl font-semibold">
-          {tutorial?.title ?? "Tutorial Content"}
-        </p>
-        <Button onClick={handleDialogRef}>Add Content</Button>
+        <div className="flex flex-col gap-y-1">
+          <p className="text-2xl md:text-2xl font-semibold">
+            {tutorial?.title ?? "Tutorial Content"}
+          </p>
+
+          {/* add folder name */}
+          <p className="opacity-70">{currentContent?.title}</p>
+        </div>
+        <div className="flex gap-5 items-center">
+          <Button onClick={handleDialogRef}>Add New Folder</Button>
+          <Button onClick={contentRouteHandler}>Add New Content</Button>
+        </div>
       </div>
       <ContentDialog
         dialogRef={dialogRef}

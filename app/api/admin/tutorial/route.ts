@@ -74,3 +74,82 @@ export const POST = async (req: NextRequest) => {
     );
   }
 };
+
+export const DELETE = async (req: NextRequest) => {
+  const reqData: {
+    contentId: number;
+  } = await req.json();
+
+  if (!reqData.contentId)
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Content id not provided",
+      },
+      { status: 403 }
+    );
+
+  let content = null;
+  try {
+    content = await prisma.content.findUnique({
+      where: {
+        id: reqData.contentId,
+      },
+      include: {
+        _count: {
+          select: {
+            children: true,
+          },
+        },
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Error while verifying content id",
+      },
+      { status: 500 }
+    );
+  }
+
+  if (!content)
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Content id is invalid",
+      },
+      { status: 403 }
+    );
+
+  if (content._count.children <= 0)
+    try {
+      await prisma.content.delete({
+        where: {
+          id: reqData.contentId,
+        },
+      });
+      return NextResponse.json({
+        success: true,
+        message: "Content deleted successfully",
+      });
+    } catch (error) {
+      console.error(error);
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Content deletion failed",
+        },
+        { status: 500 }
+      );
+    }
+  else
+    return NextResponse.json(
+      {
+        success: false,
+        message: "This content has children inside it. first delete them",
+      },
+      { status: 200 }
+    );
+};

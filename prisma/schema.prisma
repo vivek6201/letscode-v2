@@ -91,7 +91,7 @@ model Tutorials {
 model TutorialContent {
   tutorials   Tutorials @relation(fields: [tutorialsId], references: [id])
   tutorialsId Int
-  content     Content   @relation(fields: [contentId], references: [id])
+  content     Content   @relation(fields: [contentId], references: [id], onDelete: Cascade)
   contentId   Int
 
   @@id([tutorialsId, contentId])
@@ -107,7 +107,7 @@ model Content {
   thumbnail       String?
   topicMetadata   TopicMetadata?
   topicMetadataId Int?
-  sortingOrder    Int 
+  sortingOrder    Int
 
   parent   Content?          @relation(name: "ContentToContent", fields: [parentId], references: [id])
   parentId Int?
