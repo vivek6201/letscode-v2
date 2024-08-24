@@ -1,10 +1,11 @@
+import { TopicMetadata } from "@/db/tutorials";
 import prisma from "@/lib/db";
-import { addFolderValidations } from "@/validations/tutorialValidations";
-import { ContentType, TopicMetadata } from "@prisma/client";
+import { ContentType } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: NextRequest) => {
   const reqData: {
+    id?: number | null;
     type: ContentType;
     title: string;
     sortingOrder: number;
@@ -18,8 +19,11 @@ export const POST = async (req: NextRequest) => {
   //TODO: check admin role before proceeding
   try {
     await prisma.$transaction(async (tx) => {
-      const content = await tx.content.create({
-        data: {
+      const content = await tx.content.upsert({
+        where: {
+          id: reqData?.id ?? -1,
+        },
+        create: {
           title: reqData.title,
           type: reqData.type,
           parentId: reqData.parentContentId,
@@ -27,30 +31,64 @@ export const POST = async (req: NextRequest) => {
           description: reqData.description,
           thumbnail: reqData.thumbnail,
         },
+        update: {
+          title: reqData.title,
+          sortingOrder: reqData.sortingOrder,
+          description: reqData.description,
+          thumbnail: reqData.thumbnail,
+        },
       });
 
+      //convert everything into upsert
       if (reqData.type === "Folder") {
-        await tx.tutorialContent.create({
-          data: {
+        await tx.tutorialContent.upsert({
+          where: {
+            tutorialsId_contentId: {
+              tutorialsId: reqData.tutorialId,
+              contentId: content.id,
+            },
+          },
+          create: {
             tutorialsId: reqData.tutorialId,
             contentId: content.id,
           },
+          update: {
+            // No need to update anything if the combination is already present
+          },
         });
       } else if (reqData.type === "Content" && reqData.topicMetadata) {
-        await tx.topicMetadata.create({
-          data: {
+        await tx.topicMetadata.upsert({
+          where: {
+            contentId: content.id,
+          },
+          create: {
             content: reqData.topicMetadata?.content,
             slug: reqData.topicMetadata.slug,
             metaDescription: reqData.description,
             contentId: content.id,
             metaTitle: reqData.topicMetadata.metaTitle,
           },
+          update: {
+            content: reqData.topicMetadata?.content,
+            slug: reqData.topicMetadata.slug,
+            metaDescription: reqData.description,
+            metaTitle: reqData.topicMetadata.metaTitle,
+          },
         });
 
-        await tx.tutorialContent.create({
-          data: {
+        await tx.tutorialContent.upsert({
+          where: {
+            tutorialsId_contentId: {
+              tutorialsId: reqData.tutorialId,
+              contentId: content.id,
+            },
+          },
+          create: {
             tutorialsId: reqData.tutorialId,
             contentId: content.id,
+          },
+          update: {
+            // No need to update anything if the combination is already present
           },
         });
       }
@@ -59,16 +97,16 @@ export const POST = async (req: NextRequest) => {
     return NextResponse.json(
       {
         success: true,
-        message: "Content created Successfully!",
+        message: reqData.id ? "Content updated successfully" : "Content created Successfully!",
       },
-      { status: 201 }
+      { status: reqData.id ? 200 : 201 }
     );
   } catch (error) {
     console.error(error);
     return NextResponse.json(
       {
         success: false,
-        message: "Error occurred while creating content!",
+        message: "Error occurred while performing creation/updation action!",
       },
       { status: 500 }
     );

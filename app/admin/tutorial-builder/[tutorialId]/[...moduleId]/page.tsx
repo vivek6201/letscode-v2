@@ -28,7 +28,13 @@ export default async function page({
 
   if (rest[rest.length - 1] === "new-topic") {
     //this creates a new content
-    return <AdminContentEditor />;
+    //remember to pass the parentId as rest[rest.length - 2]
+    return (
+      <AdminContentEditor
+        tutorialId={Number(tutorialId)}
+        parentContentId={Number(rest[rest.length - 2])}
+      />
+    );
   }
 
   //this is used to fetch the contents of current child
@@ -38,6 +44,8 @@ export default async function page({
     // this edits the existing content
     return (
       <AdminContentEditor
+        tutorialId={Number(tutorialId)}
+        parentContentId={Number(rest[rest.length - 1])}
         content={tutorialContent.contents as ChildTutorialContent}
       />
     );

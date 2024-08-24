@@ -51,6 +51,8 @@ export const getAllContent = async (): Promise<
     parentId: number | null;
     createdAt: Date;
     topicMetadata: {
+      id: number;
+      content: string;
       slug: string;
       metaTitle: string;
       metaDescription: string;
@@ -63,13 +65,7 @@ export const getAllContent = async (): Promise<
       hidden: false,
     },
     include: {
-      topicMetadata: {
-        select: {
-          metaDescription: true,
-          slug: true,
-          metaTitle: true,
-        },
-      },
+      topicMetadata: true
     },
   });
 
@@ -127,6 +123,7 @@ const getTopicMetadata = async (contentId: number) => {
 };
 
 export type TopicMetadata = {
+  content: string;
   slug: string;
   metaTitle: string;
   metaDescription: string;
