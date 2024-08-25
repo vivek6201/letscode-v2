@@ -28,7 +28,6 @@ export default function TopicContentForm({
   content?: any;
   parentContentId: number;
 }) {
-  console.log(content);
   const form = useForm<z.infer<typeof addTopicsValidations>>({
     resolver: zodResolver(addTopicsValidations),
     defaultValues: {

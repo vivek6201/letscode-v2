@@ -17,13 +17,7 @@ import { z } from "zod";
 import FolderContentForm from "./Forms/FolderContentForm";
 import { useRouter } from "next/navigation";
 
-export default function AddTutorialFolder({
-  rest,
-  tutorial,
-  tutorialId,
-  parentContentId,
-  currentContent,
-}: {
+interface AddTutorialFolderType {
   rest: string[];
   tutorial: {
     id: number;
@@ -37,7 +31,15 @@ export default function AddTutorialFolder({
   tutorialId: number;
   parentContentId: number;
   currentContent?: { title: string; id: number };
-}) {
+}
+
+export default function AddTutorialFolder({
+  rest,
+  tutorial,
+  tutorialId,
+  parentContentId,
+  currentContent,
+}: AddTutorialFolderType) {
   const dialogRef = useRef<null | HTMLButtonElement>(null);
   const router = useRouter();
 

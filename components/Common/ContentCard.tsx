@@ -24,8 +24,7 @@ export default function ContentCard({
         <p className="text-sm opacity-75">{description}</p>
       </div>
       <div className="flex justify-between items-center w-full">
-        <p className="text-sm">0 Chapters</p>
-        
+          
           <Button className="flex gap-2" onClick={onClick}>
             Explore{" "}
             <ChevronRight

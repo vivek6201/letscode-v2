@@ -85,7 +85,7 @@ interface ContentWithMetadata {
   topicMetadata?: {
     slug: string;
     metaTitle: string;
-    metaDescripion: string;
+    metaDescription: string;
   } | null;
 }
 
@@ -145,7 +145,7 @@ export const getFullTutorialData = async (
   const tutorialContent = await getRootCourseContent(tutorialsId);
   // const topicMetadata = await getTopicMetadata()
   const contentMap = new Map<number, FullTutorialContent>(
-    allContent.map((content: any) => [
+    allContent.map((content) => [
       content.id,
       {
         ...content,

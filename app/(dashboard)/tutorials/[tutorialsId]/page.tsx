@@ -1,20 +1,23 @@
+import SearchContent from "@/components/Common/SearchContent";
 import TutorialView from "@/components/Common/TutorialView";
+import { Button } from "@/components/ui/button";
+import MoveBack from "@/components/ui/move-back";
 import { getFullTutorialData, getTutorial } from "@/db/tutorials";
 import { ContentFinder } from "@/lib/ContentFinder";
+import { ArrowLeft } from "lucide-react";
 import React from "react";
-import { string } from "zod";
 
 export default async function page({
   params,
   searchParams,
 }: {
-  params: { tutorialId: string };
+  params: { tutorialsId: string };
   searchParams: string;
 }) {
-  const tutorialId = params.tutorialId;
+  const tutorialsId = params.tutorialsId;
   const rest: string[] = [];
-  const tutorial = await getTutorial(tutorialId);
-  const fullTutorialContent = await getFullTutorialData(Number(tutorialId));
+  const tutorial = await getTutorial(tutorialsId);
+  const fullTutorialContent = await getFullTutorialData(Number(tutorialsId));
   const tutorialContent = ContentFinder(
     fullTutorialContent,
     rest.map((x) => parseInt(x))

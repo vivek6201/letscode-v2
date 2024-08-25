@@ -8,9 +8,7 @@ export const ContentFinder = (
   | { type: ContentType; contents: ChildTutorialContent[] }
   | { type: ContentType; contents: ChildTutorialContent }
   | null => {
-
-
-  if (ids.length === 0) return { type: ContentType.Content, contents };
+  if (ids.length === 0) return { type: ContentType.Folder, contents };
 
   const currentId = ids[0];
   const remainingIds = ids.slice(1);

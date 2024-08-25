@@ -40,9 +40,8 @@ export default async function page() {
             <ItemCard
               title={it.title}
               description={it.description}
-              link={`/tutorials/${it.slug}`}
+              link={`/tutorials/${it.id}`}
               key={it.id}
-              count={1}
             />
           );
         })}

@@ -1,7 +1,10 @@
 import React from "react";
-import TopicRenderer from "../HomeDashboard/tutorials/TopicRenderer";
 import { $Enums, ContentType } from "@prisma/client";
-import type { ChildTutorialContent, FullTutorialContent } from "@/db/tutorials";
+import {
+  getCurrentContent,
+  type ChildTutorialContent,
+  type FullTutorialContent,
+} from "@/db/tutorials";
 import ContentRenderer from "./ContentRenderer";
 import FolderView from "./FolderView";
 
@@ -26,7 +29,7 @@ export type TutorialContent =
     }
   | null;
 
-export default function TutorialView({
+export default async function TutorialView({
   tutorial,
   tutorialContent,
   nextContent,
@@ -43,17 +46,27 @@ export default function TutorialView({
   searchParams: any;
   possiblePath: string;
 }) {
+  const currentContent = await getCurrentContent(Number(rest[rest.length - 1]));
+
   return (
-    <div className="p-10 overflow-y-auto">
+    <div className="h-full">
       {tutorialContent?.type === "Content" ? (
-        <ContentRenderer nextContent={nextContent} content={{...tutorialContent}} />
+        <ContentRenderer
+          nextContent={nextContent}
+          content={tutorialContent.contents}
+        />
       ) : null}
 
       {tutorialContent?.type === "Folder" ? (
         <FolderView
+          currentContent={{
+            title: currentContent?.title ?? "",
+            id: currentContent?.id ?? -1,
+          }}
+          tutorial={tutorial}
           rest={rest}
           tutorialContent={tutorialContent.contents}
-          tutorialId={tutorial?.id ?? 0}
+          tutorialsId={tutorial?.id ?? 0}
         />
       ) : null}
     </div>
