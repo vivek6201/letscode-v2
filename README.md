@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h2 align="center">LETS CODE</h2>
 
-## Getting Started
+- Techstack Used
+  - NextJS
+  - Prisma
+  - Shadcn UI (For styling)
+  - PostgreSQL - (But you can say that it has Some NoSQL tendencies)
+  - NextAuth (Currently not completely implemented)
+  
+- What is this project all about
+  - All this content delivery platform and the code structure is litle bit inspired from CMS Reposity of code100x.
+  - Currently this platform supports tutorials in form of books with multiple chapters.
+  - Slowly thinking of expanding to course as well.
+ 
+- Working part of the code till now
+  - Admin panel where you can create the tutorial
+  - user side where you can read tutorial
 
-First, run the development server:
+- Pending Work
+    - Authentication and Authorization
+    - Searching Functionality
+    - Implementing Dockerfile and docker-compose as well.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## HOW TO SETUP
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. Clone the Repository
+   ```bash
+   git clone https://github.com/vivek6201/letscode-v2.git
+   ```
+2. Install dependencies with
+   ```bash
+   yarn install
+   ```
+3. Copy .env.example to .env
+   ```bash
+   cp .env.example .env
+   ```
+4. Paste your DB URL in .env:
+   - Either get from any provider
+   - or start a local instance using docker
+     ```bash
+       docker volume create lets-code-volume
+       docker run -d -p 5432:5432 --name lets-code -v lets-code-volume -e POSTGRES_PASSWORD=mysecretpass postgres 
+     ```
+5. Migrate your database
+  ```bash
+   npx prisma migrate dev
+   ```
+6. finally run app with 
+   ```bash
+   yarn dev
+   ```
+<br/>
+<h2 align="center">HOPE YOU WILL LIKE MY WORK</h2> 
+  
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
