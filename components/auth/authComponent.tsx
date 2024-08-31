@@ -23,7 +23,7 @@ export default function AuthComponent({ page }: { page: string }) {
       <CardContent className="flex flex-col items-center justify-around h-full w-full">
         <div className="flex gap-2 flex-col items-center justify-center w-full">
           <p className="text-lg">Welcome to</p>
-          <p className="text-3xl">Let's Code</p>
+          <p className="text-3xl">Let&apos;s Code</p>
         </div>
 
         {page === "Login" ? <LoginForm /> : <SignupForm />}
@@ -54,7 +54,7 @@ export default function AuthComponent({ page }: { page: string }) {
           </div>
           {page === "Login" ? (
             <p className="text-center opacity-70">
-              New to Lets's Code?{"  "}
+              New to Lets&apos;s Code?{"  "}
               <span
                 onClick={() => router.push("/signup")}
                 className="text-red-400 font-medium cursor-pointer"

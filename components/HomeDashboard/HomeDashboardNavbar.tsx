@@ -96,7 +96,7 @@ function AuthModal() {
         <div className="flex w-full flex-col items-center justify-around">
           <div className="flex gap-2 flex-col items-center justify-center w-full">
             <p className="text-lg">Welcome to</p>
-            <p className="text-3xl">Let's Code</p>
+            <p className="text-3xl">Let&apos;s Code</p>
           </div>
 
           {isLogin ? <LoginForm /> : <SignupForm />}
@@ -127,7 +127,7 @@ function AuthModal() {
             </div>
             {isLogin ? (
               <p className="text-center opacity-70">
-                New to Lets's Code?{"  "}
+                New to Lets&apos;s Code?{"  "}
                 <span
                   onClick={() => setIslogin(false)}
                   className="text-red-400 font-medium cursor-pointer"
