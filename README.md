@@ -19,7 +19,7 @@
 
 - Pending Work
     - Searching Functionality
-    - Implementing Dockerfile and docker-compose as well.
+    - Implementing docker-compose.
 
 ## HOW TO SETUP
 
