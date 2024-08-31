@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { Provider } from "@/components/Provider";
 import { GoogleAnalytics } from "@/components/analytics";
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -21,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <GoogleAnalytics/>
+      <GoogleAnalytics />
       <body className={inter.className}>
         <Provider>
           <NextTopLoader showSpinner={false} color="gray" />
