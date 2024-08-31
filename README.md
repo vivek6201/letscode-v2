@@ -11,15 +11,6 @@
   - All this content delivery platform and the code structure is litle bit inspired from CMS Reposity of code100x.
   - Currently this platform supports tutorials in form of books with multiple chapters.
   - Slowly thinking of expanding to course as well.
- 
-- Working part of the code till now
-  - Admin panel where you can create the tutorial
-  - user side where you can read tutorial
-  - Authentication and Authorization
-
-- Pending Work
-    - Searching Functionality
-    - Implementing docker-compose.
 
 ## HOW TO SETUP
 
