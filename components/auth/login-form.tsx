@@ -18,11 +18,13 @@ import { signIn, SignInResponse } from "next-auth/react";
 import { X } from "lucide-react";
 import CustomIcon from "../ui/custom-icon";
 import { usePathname, useRouter } from "next/navigation";
+import { Label } from "../ui/label";
 
 export default function LoginForm() {
   const [error, setError] = useState<null | SignInResponse>(null);
-  const pathname = usePathname()
+  const pathname = usePathname();
   const router = useRouter();
+  const [isPassVisible, setIsPassVisible] = useState(false);
 
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -88,12 +90,17 @@ export default function LoginForm() {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your password" {...field} />
+                <Input
+                  type="password"
+                  placeholder="Enter your password"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
+
         <Button type="submit">Submit</Button>
       </form>
     </Form>
