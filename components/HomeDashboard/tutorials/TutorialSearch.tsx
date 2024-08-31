@@ -17,7 +17,7 @@ import { $Enums } from "@prisma/client";
 export default function TutorialSearch({
   tutorials,
 }: {
-  tutorials: ({
+  tutorials?: ({
     _count: {
       tutorialContent: number;
     };
@@ -67,11 +67,11 @@ export default function TutorialSearch({
       <CommandDialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <CommandInput placeholder="Type a command or search..." />
         <CommandList>
-          {tutorials.length === 0 ? (
+          {tutorials?.length === 0 ? (
             <CommandEmpty>No results found</CommandEmpty>
           ) : null}
           <CommandGroup heading="Tutorials">
-            {tutorials.map((item) => (
+            {tutorials?.map((item) => (
               <CommandItem key={item.id}>{item.title}</CommandItem>
             ))}
           </CommandGroup>

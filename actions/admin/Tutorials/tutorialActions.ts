@@ -1,5 +1,6 @@
 "use server";
 
+import { auth } from "@/lib/auth";
 import prisma from "@/lib/db";
 import { addTutorialValidations } from "@/validations/tutorialValidations";
 import { z } from "zod";
@@ -22,6 +23,14 @@ const createTutorial = async (tutorialData: Tutorialtype) => {
       }),
     };
   }
+
+  const session = await auth();
+
+  if (session?.user.role !== "Admin")
+    return {
+      success: false,
+      message: "You are not authorized!",
+    };
 
   try {
     const tutorial = await prisma.tutorials.findFirst({
@@ -72,9 +81,17 @@ export const updateTutorial = async (tutorialData: Tutorialtype) => {
     .partial()
     .safeParseAsync(tutorialData);
 
+  const session = await auth();
+
+  if (session?.user.role !== "Admin")
+    return {
+      success: false,
+      message: "You are not authorized!",
+    };
+
   if (!success) {
     return {
-      success:false,
+      success: false,
       error: error.issues.map((issue) => {
         return {
           path: issue.path[0],
@@ -93,14 +110,14 @@ export const updateTutorial = async (tutorialData: Tutorialtype) => {
 
     if (!tutorial) {
       return {
-        success:false,
+        success: false,
         message: "Tutorial not found!",
       };
     }
   } catch (error) {
     console.error("error", error);
     return {
-      success:false,
+      success: false,
       message: "Error occurred while verifying tutorial",
     };
   }
@@ -114,14 +131,14 @@ export const updateTutorial = async (tutorialData: Tutorialtype) => {
     });
 
     return {
-      success:true,
+      success: true,
       message: "Data updated successfuly!",
       tutorial: updateTutorial,
     };
   } catch (error) {
     console.error("error", error);
     return {
-      success:false,
+      success: false,
       message: "Errow occurred while updating data!",
     };
   }

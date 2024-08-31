@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "db:generate":"npx prisma generate",
+    "db:migrate":"npx prisma migrate dev",
+    "build": "yarn db:migrate && yarn db:generate && next build",
     "start": "next start",
     "lint": "next lint"
   },
