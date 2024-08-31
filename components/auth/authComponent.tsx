@@ -3,8 +3,8 @@
 import React from "react";
 import { Button } from "../ui/button";
 import { FaGoogle, FaGithub } from "react-icons/fa";
-import LoginForm from "./LoginForm";
-import SignupForm from "./SignupForm";
+import LoginForm from "./login-form";
+import SignupForm from "./signup-form";
 import { useRouter } from "next/navigation";
 import {
   Card,

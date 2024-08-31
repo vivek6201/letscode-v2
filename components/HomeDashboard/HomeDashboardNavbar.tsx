@@ -20,16 +20,12 @@ import { homeDashSidebarAtom } from "@/store/sidebarStore";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import Image from "next/image";
 import { FaGithub, FaGoogle } from "react-icons/fa";
-import LoginForm from "../auth/LoginForm";
-import SignupForm from "../auth/SignupForm";
-import { Separator } from "@radix-ui/react-dropdown-menu";
+import LoginForm from "../auth/login-form";
+import SignupForm from "../auth/signup-form";
 
 export default function HomeDashboardNavbar() {
   const session = useSession();
