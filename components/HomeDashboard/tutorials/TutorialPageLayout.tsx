@@ -30,18 +30,6 @@ export default function TutorialPageLayout({
   const [tutorialSidebar, setTutoriaSidebar] =
     useRecoilState(tutorialSidebarAtom);
 
-  useEffect(() => {
-    const handleSidebar = () => {
-      if (window.innerWidth <= 700) {
-        setTutoriaSidebar(false);
-      } else {
-        setTutoriaSidebar(true);
-      }
-    };
-
-    handleSidebar();
-  }, []);
-
   const findPath = (
     contents: FullTutorialContent[],
     targetId: number,

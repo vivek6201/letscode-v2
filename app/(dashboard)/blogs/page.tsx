@@ -13,7 +13,7 @@ export default function page() {
 
       <div className="pt-16 px-10 grid md:grid-cols-2 xl:grid-cols-3 gap-5 ">
         {/* Grid for all tutorials card listed */}
-        <ItemCard title="Array" description="Awesome Content" link="#" count={0}/>
+        <ItemCard title="Array" description="Awesome Content" link="#"/>
       </div>
     </div>
   );
