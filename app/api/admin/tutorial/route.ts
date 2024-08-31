@@ -1,9 +1,12 @@
 import { TopicMetadata } from "@/db/tutorials";
+import { auth } from "@/lib/auth";
 import prisma from "@/lib/db";
 import { ContentType } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: NextRequest) => {
+  const session = await auth();
+
   const reqData: {
     id?: number | null;
     type: ContentType;
@@ -17,6 +20,16 @@ export const POST = async (req: NextRequest) => {
   } = await req.json();
 
   //TODO: check admin role before proceeding
+  if (session?.user.role !== "Admin") {
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Unauthorized access",
+      },
+      { status: 403 }
+    );
+  }
+
   try {
     await prisma.$transaction(async (tx) => {
       const content = await tx.content.upsert({
@@ -39,7 +52,6 @@ export const POST = async (req: NextRequest) => {
         },
       });
 
-      //convert everything into upsert
       if (reqData.type === "Folder") {
         await tx.tutorialContent.upsert({
           where: {
@@ -97,7 +109,9 @@ export const POST = async (req: NextRequest) => {
     return NextResponse.json(
       {
         success: true,
-        message: reqData.id ? "Content updated successfully" : "Content created Successfully!",
+        message: reqData.id
+          ? "Content updated successfully"
+          : "Content created Successfully!",
       },
       { status: reqData.id ? 200 : 201 }
     );
@@ -114,6 +128,9 @@ export const POST = async (req: NextRequest) => {
 };
 
 export const DELETE = async (req: NextRequest) => {
+
+  const session = await auth();
+
   const reqData: {
     contentId: number;
   } = await req.json();
@@ -126,6 +143,16 @@ export const DELETE = async (req: NextRequest) => {
       },
       { status: 403 }
     );
+
+  if (session?.user.role !== "Admin") {
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Unauthorized access",
+      },
+      { status: 403 }
+    );
+  }
 
   let content = null;
   try {

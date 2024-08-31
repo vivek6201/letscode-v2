@@ -6,8 +6,8 @@ import Github from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { loginSchema } from "@/validations/authValidations";
 import bcryptjs from "bcryptjs";
-import { Prisma } from "@prisma/client";
-import { ZodError, any } from "zod";
+import { Prisma, Role } from "@prisma/client";
+import { ZodError } from "zod";
 import { randomUUID } from "crypto";
 import { JWT, JWTEncodeParams, encode } from "next-auth/jwt";
 class InvalidLoginError extends CredentialsSignin {
@@ -21,18 +21,18 @@ class InvalidLoginError extends CredentialsSignin {
 declare module "@auth/core/types" {
   interface Session {
     user: {
-      role?: string | null;
+      role?: Role | null;
     } & DefaultSession["user"];
   }
 
   interface User {
-    role?: string | null;
+    role?: Role | null;
   }
 }
 
 declare module "@auth/core/adapters" {
   interface AdapterUser extends User {
-    role?: string | null;
+    role?: Role | null;
   }
 }
 

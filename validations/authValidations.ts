@@ -1,5 +1,5 @@
 import { z } from "zod";
-import {Role} from "@prisma/client"
+import { Role } from "@prisma/client";
 
 export const loginSchema = z.object({
   email: z.string().email(),
@@ -16,5 +16,6 @@ export const registerSchema = z
     confirmPassword: z.string().min(3),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "password do not match",
+    message: "confirm pass & pass should match",
+    path: ["confirmPassword"],
   });
