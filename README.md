@@ -5,7 +5,7 @@
   - Prisma
   - Shadcn UI (For styling)
   - PostgreSQL - (But you can say that it has Some NoSQL tendencies)
-  - NextAuth (Currently not completely implemented)
+  - NextAuth
   
 - What is this project all about
   - All this content delivery platform and the code structure is litle bit inspired from CMS Reposity of code100x.
@@ -15,9 +15,9 @@
 - Working part of the code till now
   - Admin panel where you can create the tutorial
   - user side where you can read tutorial
+  - Authentication and Authorization
 
 - Pending Work
-    - Authentication and Authorization
     - Searching Functionality
     - Implementing Dockerfile and docker-compose as well.
 
