@@ -19,7 +19,7 @@ export const addFolderValidations = z.object({
 export const addTopicsValidations = z.object({
   topicName: z.string().min(1),
   description: z.string(),
-  content: z.string().min(10),
+  content: z.any(),
   slug: z.string().min(1),
   isPublished: z.boolean().default(false),
   sortingOrder: z.number(),

@@ -9,17 +9,27 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Search } from "lucide-react";
+import { ArrowRight, Github, MoveRight, Search } from "lucide-react";
 import RoundedChip from "../ui/rounded-chip";
+import { Button } from "../ui/button";
+import CustomIcon from "../ui/custom-icon";
+import Link from "next/link";
 
 export default function HeroSection() {
   const carousalItems = ["HTML", "CSS", "JavaScript", "Python", "C++", "Java"];
 
   return (
     <div className="min-h-[600px] flex flex-col items-center justify-center gap-y-10 container">
-      <p className="rounded-full px-8 py-2 bg-gray-100 dark:bg-red-800 dark:text-white shadow-md text-sm">
-        Top Rated Education Platform
-      </p>
+      <Link href={"http://github.com/vivek6201/letscode-v2"}>
+        <Button
+          variant={"secondary"}
+          className="px-8 h-10 rounded-full flex gap-4 transition-all duration-200 hover:border"
+        >
+          <CustomIcon iconName={Github} /> Contribute to codebase{" "}
+          <CustomIcon iconName={ArrowRight} />
+        </Button>
+      </Link>
+
       <h2 className="text-5xl font-bold max-w-[500px] text-center">
         <HighlightedText text="Learn" />, Code and Grow{" "}
         <HighlightedText text={"Together"} />

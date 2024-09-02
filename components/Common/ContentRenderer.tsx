@@ -22,6 +22,8 @@ export default function ContentRenderer({
         <MoveBack />
         <p className="text-2xl font-bold">{content.title}</p>
       </div>
+
+      {/* render tiptap content */}
       <p className="mt-10">{content.topicMetadata.content}</p>
     </div>
   );

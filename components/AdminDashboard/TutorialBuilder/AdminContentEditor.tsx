@@ -1,5 +1,4 @@
 import { ChildTutorialContent } from "@/db/tutorials";
-import { ContentType } from "@prisma/client";
 import React from "react";
 import TopicContentForm from "./Forms/TopicContentForm";
 
@@ -13,7 +12,7 @@ export default function AdminContentEditor({
   content?: ChildTutorialContent;
 }) {
   return (
-    <div className="p-10">
+    <div className="p-10 h-full overflow-y-auto">
       <p className="text-2xl font-semibold mb-10">
         {content ? "Edit Content" : "Add Content"}
       </p>

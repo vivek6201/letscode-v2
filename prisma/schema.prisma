@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
 }
 
@@ -121,11 +121,11 @@ model Content {
 
 model TopicMetadata {
   id        Int     @id @default(autoincrement())
-  Content   Content @relation(fields: [contentId], references: [id])
+  Content   Content @relation(fields: [contentId], references: [id], onDelete: Cascade)
   contentId Int     @unique
 
   slug            String @unique
-  content         String
+  content         Json
   metaTitle       String
   metaDescription String
 }

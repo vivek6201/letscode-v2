@@ -18,6 +18,7 @@ import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
 import { ContentType } from "@prisma/client";
 import { toast } from "sonner";
+import Tiptap from "../RichEditor";
 
 export default function TopicContentForm({
   tutorialId,
@@ -31,7 +32,7 @@ export default function TopicContentForm({
   const form = useForm<z.infer<typeof addTopicsValidations>>({
     resolver: zodResolver(addTopicsValidations),
     defaultValues: {
-      content: "",
+      content: null,
       description: "",
       isPublished: false,
       metaTitle: "",
@@ -42,8 +43,7 @@ export default function TopicContentForm({
   });
 
   if (content) {
-
-    //we have a bug here content updatation form is not performing well. 
+    //we have a bug here content updatation form is not performing well.
     //check this if block
     const data = {
       topicName: content.title,
@@ -62,7 +62,7 @@ export default function TopicContentForm({
   async function onSubmit(values: z.infer<typeof addTopicsValidations>) {
     try {
       await axios.post("/api/admin/tutorial", {
-        id: (content ? content.id : null),
+        id: content ? content.id : null,
         type: ContentType.Content,
         title: values.topicName,
         sortingOrder: values.sortingOrder,
@@ -170,10 +170,8 @@ export default function TopicContentForm({
             <FormItem>
               <FormLabel>Content</FormLabel>
               <FormControl>
-                <Textarea
-                  placeholder="Write the content of the Topic"
-                  {...field}
-                />
+                {/* TODO: content validation is missing */}
+                <Tiptap {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
