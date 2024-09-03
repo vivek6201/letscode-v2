@@ -1,7 +1,7 @@
 import { TopicMetadata } from "@/db/tutorials";
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/db";
-import { ContentType } from "@prisma/client";
+import { ContentType, Prisma } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: NextRequest) => {
@@ -74,14 +74,14 @@ export const POST = async (req: NextRequest) => {
             contentId: content.id,
           },
           create: {
-            content: reqData.topicMetadata?.content,
+            content: reqData.topicMetadata?.content ?? Prisma.JsonNull,
             slug: reqData.topicMetadata.slug,
             metaDescription: reqData.description,
             contentId: content.id,
             metaTitle: reqData.topicMetadata.metaTitle,
           },
           update: {
-            content: reqData.topicMetadata?.content,
+            content: reqData.topicMetadata?.content ?? Prisma.JsonNull,
             slug: reqData.topicMetadata.slug,
             metaDescription: reqData.description,
             metaTitle: reqData.topicMetadata.metaTitle,
