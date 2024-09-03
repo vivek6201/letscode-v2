@@ -5,7 +5,7 @@ import {
   type ChildTutorialContent,
   type FullTutorialContent,
 } from "@/db/tutorials";
-import ContentRenderer from "./ContentRenderer";
+import ContentRenderer from "../HomeDashboard/tutorials/ContentRenderer";
 import FolderView from "./FolderView";
 
 export type TutorialType = {

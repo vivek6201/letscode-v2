@@ -1,9 +1,10 @@
 "use client";
 import { ChildTutorialContent } from "@/db/tutorials";
-import type { ContentType } from "@prisma/client";
+import type { ContentType, Prisma } from "@prisma/client";
 import { Content } from "@prisma/client";
 import React from "react";
-import MoveBack from "../ui/move-back";
+import MoveBack from "../../ui/move-back";
+import TiptapRenderer from "./TiptapRenderer";
 
 export default function ContentRenderer({
   nextContent,
@@ -16,15 +17,16 @@ export default function ContentRenderer({
   } | null;
   content: any;
 }) {
+
   return (
-    <div className="border py-10 px-10 rounded-md h-full">
+    <div className="border py-10 px-10 rounded-md h-full w-full overflow-y-auto">
       <div className="flex gap-5 items-center">
         <MoveBack />
         <p className="text-2xl font-bold">{content.title}</p>
       </div>
 
       {/* render tiptap content */}
-      <p className="mt-10">{content.topicMetadata.content}</p>
+      <TiptapRenderer content={content.topicMetadata.content}/>
     </div>
   );
 }

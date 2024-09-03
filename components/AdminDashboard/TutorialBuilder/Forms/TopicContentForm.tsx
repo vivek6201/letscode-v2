@@ -77,10 +77,16 @@ export default function TopicContentForm({
         },
       });
 
-      toast.success("Content created Successfully!");
+      toast.success(
+        content
+          ? "Content Updated Successfully!"
+          : "Content created Successfully!"
+      );
     } catch (error) {
       console.error(error);
-      toast.error("failed to create content!");
+      toast.error(
+        content ? "failed to update content!" : "failed to create content!"
+      );
     }
   }
 

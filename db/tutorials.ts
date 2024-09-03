@@ -1,5 +1,5 @@
 import prisma from "@/lib/db";
-import { ContentType } from "@prisma/client";
+import { ContentType, Prisma } from "@prisma/client";
 
 export interface Content {
   id: number;
@@ -52,7 +52,7 @@ export const getAllContent = async (): Promise<
     createdAt: Date;
     topicMetadata: {
       id: number;
-      content: string;
+      content: Prisma.JsonValue;
       slug: string;
       metaTitle: string;
       metaDescription: string;
@@ -123,7 +123,7 @@ const getTopicMetadata = async (contentId: number) => {
 };
 
 export type TopicMetadata = {
-  content: string;
+  content: Prisma.JsonValue;
   slug: string;
   metaTitle: string;
   metaDescription: string;
