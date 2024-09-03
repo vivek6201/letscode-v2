@@ -37,6 +37,7 @@ import {
 } from "@/components/ui/select";
 
 const ReportDialog = forwardRef((props, ref: React.Ref<HTMLButtonElement>) => {
+  
   const [openState, setOpenState] = useState(false);
   const form = useForm<ReportValidationType>({
     resolver: zodResolver(reportValidations),
@@ -181,5 +182,7 @@ const ReportDialog = forwardRef((props, ref: React.Ref<HTMLButtonElement>) => {
     </Dialog>
   );
 });
+
+ReportDialog.displayName = "ReportDialog";
 
 export default ReportDialog;

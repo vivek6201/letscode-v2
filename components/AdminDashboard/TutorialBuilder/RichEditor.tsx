@@ -77,10 +77,6 @@ const Tiptap = (props: any) => {
   const lowlight = createLowlight(all);
   // Initializes the text editor
 
-  useEffect(() => {
-    console.log({ value: props.value });
-  }, [props.value]);
-
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -202,7 +198,7 @@ const Tiptap = (props: any) => {
 
   useEffect(() => {
     editor?.chain().focus().setFontFamily(fontStyle).run();
-  }, [fontStyle]);
+  }, [fontStyle, editor]);
 
   const addYoutubeVideo = () => {
     const url = prompt("Enter YouTube URL");
