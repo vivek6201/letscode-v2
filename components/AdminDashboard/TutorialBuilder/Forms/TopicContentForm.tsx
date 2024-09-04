@@ -1,7 +1,7 @@
 "use client";
 import { addTopicsValidations } from "@/validations/tutorialValidations";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -19,6 +19,8 @@ import axios from "axios";
 import { ContentType } from "@prisma/client";
 import { toast } from "sonner";
 import Tiptap from "../RichEditor";
+import CustomIcon from "@/components/ui/custom-icon";
+import { Loader } from "lucide-react";
 
 export default function TopicContentForm({
   tutorialId,
@@ -29,6 +31,8 @@ export default function TopicContentForm({
   content?: any;
   parentContentId: number;
 }) {
+  const [loading, setLoading] = useState(false);
+
   const form = useForm<z.infer<typeof addTopicsValidations>>({
     resolver: zodResolver(addTopicsValidations),
     defaultValues: {
@@ -60,6 +64,7 @@ export default function TopicContentForm({
   }
 
   async function onSubmit(values: z.infer<typeof addTopicsValidations>) {
+    setLoading(true);
     try {
       await axios.post("/api/admin/tutorial", {
         id: content ? content.id : null,
@@ -87,6 +92,8 @@ export default function TopicContentForm({
       toast.error(
         content ? "failed to update content!" : "failed to create content!"
       );
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -184,7 +191,10 @@ export default function TopicContentForm({
           )}
         />
 
-        <Button type="submit" className="self-start">
+        <Button type="submit" className="self-start" disabled={loading}>
+          {
+            loading ? <CustomIcon iconName={Loader} className="animate-spin"/> : null
+          }
           Submit
         </Button>
       </form>

@@ -16,13 +16,13 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "../ui/separator";
 import { signIn } from "next-auth/react";
+import { toast } from "sonner";
 
 export default function AuthComponent({ page }: { page: string }) {
   const router = useRouter();
 
   const handleOAuth = async (provider: string) => {
     const res = await signIn(provider);
-    console.log({ res });
   };
 
   return (
@@ -46,6 +46,7 @@ export default function AuthComponent({ page }: { page: string }) {
             <Button
               className="dark:bg-neutral-900 w-full flex gap-4 items-center h-10 "
               onClick={async () => await handleOAuth("google")}
+              variant={"secondary"}
             >
               <FaGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
               <span className="text-neutral-700 dark:text-neutral-300 text-sm">
@@ -53,6 +54,7 @@ export default function AuthComponent({ page }: { page: string }) {
               </span>
             </Button>
             <Button
+            variant={"secondary"}
               className="dark:bg-neutral-900 w-full flex gap-4 items-center h-10"
               onClick={async () => await handleOAuth("github")}
             >

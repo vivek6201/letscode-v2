@@ -16,6 +16,16 @@ import { addFolderValidations } from "@/validations/tutorialValidations";
 import { z } from "zod";
 import FolderContentForm from "./Forms/FolderContentForm";
 import { useRouter } from "next/navigation";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { EllipsisVertical } from "lucide-react";
+import CustomIcon from "@/components/ui/custom-icon";
 
 interface AddTutorialFolderType {
   rest: string[];
@@ -65,7 +75,7 @@ export default function AddTutorialFolder({
   return (
     <>
       <div className="mb-10 flex justify-between items-center">
-        <div className="flex flex-col gap-y-1">
+        <div className="flex flex-col gap-y-1 mt-5">
           <p className="text-2xl md:text-2xl font-semibold">
             {tutorial?.title ?? "Tutorial Content"}
           </p>
@@ -73,10 +83,26 @@ export default function AddTutorialFolder({
           {/* add folder name */}
           <p className="opacity-70">{currentContent?.title}</p>
         </div>
-        <div className="flex gap-5 items-center">
+        <div className="md:flex gap-5 items-center hidden">
           <Button onClick={handleDialogRef}>Add New Folder</Button>
           <Button onClick={contentRouteHandler}>Add New Content</Button>
         </div>
+
+        <DropdownMenu>
+          <DropdownMenuTrigger className="md:hidden block">
+            <CustomIcon iconName={EllipsisVertical}/>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" >
+            <DropdownMenuLabel>Add Actions</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem asChild>
+              <Button onClick={handleDialogRef} variant={"ghost"}>Add New Folder</Button>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Button onClick={contentRouteHandler} variant={"ghost"}>Add New Content</Button>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
       <ContentDialog
         dialogRef={dialogRef}

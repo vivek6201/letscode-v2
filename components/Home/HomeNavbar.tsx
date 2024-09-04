@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,7 +23,6 @@ import {
   DrawerDescription,
   DrawerFooter,
   DrawerHeader,
-  DrawerOverlay,
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
@@ -70,6 +69,10 @@ const Navbar = () => {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Avatar>
+                    <AvatarImage
+                      src={session.data?.user?.image ?? ""}
+                      alt="profile-pic"
+                    />
                     <AvatarFallback className="select-none">
                       {session.data?.user.name?.split("")[0]}
                     </AvatarFallback>
@@ -101,65 +104,43 @@ const Navbar = () => {
           {/* modify the code written below later as sheet is looking ugly in mobile screens */}
           <div className="flex gap-2 items-center md:hidden">
             <ModeToggle />
-            {!session.data?.user ? (
-              <Drawer>
-                <DrawerTrigger asChild>
-                  <Button variant={"outline"} size={"icon"}>
-                    <CustomIcon iconName={Menu} />
-                  </Button>
-                </DrawerTrigger>
-                <DrawerContent className="">
-                  <DrawerHeader>
-                    <DrawerTitle>LetsCode</DrawerTitle>
-                    <DrawerDescription>Choose One</DrawerDescription>
-                  </DrawerHeader>
-                  <div className="flex flex-col gap-y-4 items-center my-10 text-lg">
-                    <Link href={"/tutorials"}>Tutorials</Link>
-                    <Link href={"/contact"}>Contact us</Link>
 
+            <Drawer>
+              <DrawerTrigger asChild>
+                <Button variant={"outline"} size={"icon"}>
+                  <CustomIcon iconName={Menu} />
+                </Button>
+              </DrawerTrigger>
+              <DrawerContent className="">
+                <DrawerHeader>
+                  <DrawerTitle>LetsCode</DrawerTitle>
+                  <DrawerDescription>Choose One</DrawerDescription>
+                </DrawerHeader>
+                <div className="flex flex-col gap-y-4 items-center my-10 text-lg">
+                  <Link href={"/tutorials"}>Tutorials</Link>
+                  <Link href={"/contact"}>Contact us</Link>
+
+                  {session.status === "authenticated" ? (
+                    <Link href={"/profile"} className="text-red-500 font-medium">Profile</Link>
+                  ) : (
                     <Link href={"/login"} className="text-red-500 font-medium">
                       Login
                     </Link>
-                  </div>
-                  <DrawerFooter>
-                    <DrawerClose>
-                      <Button variant="outline" className="w-10/12 h-10">
-                        Close
-                      </Button>
-                    </DrawerClose>
-                  </DrawerFooter>
-                </DrawerContent>
-              </Drawer>
-            ) : (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Avatar>
-                    <AvatarFallback className="select-none">
-                      {session.data?.user.name?.split("")[0]}
-                    </AvatarFallback>
-                  </Avatar>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56" align="end">
-                  <DropdownMenuLabel>My Profile</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => router.push("/profile")}>
-                    <User className="mr-2 h-4 w-4" />
-                    <span>Profile</span>
-                  </DropdownMenuItem>
-                  {session.data?.user.role === "Admin" ? (
-                    <DropdownMenuItem onClick={() => router.push("/admin")}>
-                      <Shield className="mr-2 h-4 w-4" />
-                      <span>Admin Panel</span>
-                    </DropdownMenuItem>
-                  ) : null}
-                  <DropdownMenuItem className="mt-3">
-                    <Button className="w-full" onClick={async () => signOut()}>
-                      Logout
+                  )}
+
+                  {
+                    session.data?.user.role === "Admin" ? <Link href={"/admin"} className="font-medium">Admin Panel</Link> : null
+                  }
+                </div>
+                <DrawerFooter>
+                  <DrawerClose>
+                    <Button variant="outline" className="w-10/12 h-10">
+                      Close
                     </Button>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            )}
+                  </DrawerClose>
+                </DrawerFooter>
+              </DrawerContent>
+            </Drawer>
           </div>
         </div>
       </div>

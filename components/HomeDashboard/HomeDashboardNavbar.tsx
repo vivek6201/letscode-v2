@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "../ui/button";
 import { ModeToggle } from "../Common/ModeToogler";
-import { Avatar, AvatarFallback } from "../ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { useRouter } from "next/navigation";
 import { Menu, Shield, User } from "lucide-react";
 import { useRecoilState } from "recoil";
@@ -48,6 +48,10 @@ export default function HomeDashboardNavbar() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Avatar>
+                  <AvatarImage
+                    src={session.data?.user.image ?? ""}
+                    alt="profile-pic"
+                  />
                   <AvatarFallback className="select-none">
                     {session.data?.user.name?.split("")[0]}
                   </AvatarFallback>
@@ -109,7 +113,10 @@ function AuthModal() {
 
           <div className="flex flex-col gap-y-4 items-center">
             <div className="flex items-center gap-4 gap-y-4 w-10/12 mx-auto ">
-              <Button className="dark:bg-neutral-900 w-full flex gap-4 items-center h-10 ">
+              <Button
+                className="dark:bg-neutral-900 w-full flex gap-4 items-center h-10 "
+                onClick={async () => signIn("google")}
+              >
                 <FaGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
                 <span className="text-neutral-700 dark:text-neutral-300 text-sm">
                   Google
@@ -117,7 +124,7 @@ function AuthModal() {
               </Button>
               <Button
                 className="dark:bg-neutral-900 w-full flex gap-4 items-center h-10"
-                type="submit"
+                onClick={async () => signIn("github")}
               >
                 <FaGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
                 <span className="text-neutral-700 dark:text-neutral-300 text-sm">

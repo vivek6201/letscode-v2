@@ -44,7 +44,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth(() => {
         clientId: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       }),
-      Github,
+      Github({
+        clientId: process.env.AUTH_GITHUB_ID,
+        clientSecret: process.env.AUTH_GITHUB_SECRET,
+      }),
       CredentialsProvider({
         name: "Lets Code",
         credentials: {
@@ -109,8 +112,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth(() => {
       async signIn({ account, profile, user, email }) {
 
         if(account?.provider === "credentials") return true;
-
-        console.log({ account, profile, user, email })
 
         if (!account || !profile) {
           return false; // Explicitly return a boolean value

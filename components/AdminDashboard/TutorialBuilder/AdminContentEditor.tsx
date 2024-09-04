@@ -12,7 +12,7 @@ export default function AdminContentEditor({
   content?: ChildTutorialContent;
 }) {
   return (
-    <div className="p-10 h-full overflow-y-auto">
+    <div className="p-5 md:p-10 h-full overflow-y-auto">
       <p className="text-2xl font-semibold mb-10">
         {content ? "Edit Content" : "Add Content"}
       </p>

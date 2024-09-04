@@ -1,6 +1,6 @@
 "use client";
 import { addFolderValidations } from "@/validations/tutorialValidations";
-import React from "react";
+import React, { useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -17,6 +17,8 @@ import axios from "axios";
 import { ContentType } from "@prisma/client";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
+import { Loader } from "lucide-react";
+import CustomIcon from "@/components/ui/custom-icon";
 
 export default function FolderContentForm({
   form,
@@ -27,9 +29,12 @@ export default function FolderContentForm({
   tutorialId: number;
   parentContentId: number;
 }) {
+  const [loading, setLoading] = useState(false);
+
   async function handleFormSubmit(
     values: z.infer<typeof addFolderValidations>
   ) {
+    setLoading(true);
     try {
       await axios.post("/api/admin/tutorial", {
         type: ContentType.Folder,
@@ -43,6 +48,8 @@ export default function FolderContentForm({
     } catch (error) {
       toast.error("Error while creating Folder!");
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -99,7 +106,11 @@ export default function FolderContentForm({
             </FormItem>
           )}
         />
-        <Button type="submit" className="mt-5">
+        <Button type="submit" className="mt-5 flex items-center gap-3" disabled={loading}>
+          {
+            loading ? <CustomIcon iconName={Loader} className="animate-spin" /> : null
+          }
+          
           Submit
         </Button>
       </form>

@@ -25,7 +25,7 @@ export default async function page({
   );
 
   return (
-    <div className="p-10">
+    <div className="p-5 md:p-10">
       <AddTutorialFolder
         rest={rest}
         tutorial={tutorial}

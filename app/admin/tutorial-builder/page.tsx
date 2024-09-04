@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 const TutorialBuilder = () => {
   return (
-    <div className="px-10 py-5">
+    <div className="p-5 md:px-10 py-5">
       <div className="flex justify-between items-center py-5 px-2">
         <p className="font-bold text-xl">All Tutorials</p>
         <AddTutorialDialog />
