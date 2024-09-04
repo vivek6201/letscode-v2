@@ -95,15 +95,15 @@ export default function TutorialPageLayout({
 
   return (
     <div
-      className={`p-5 grid ${
-        tutorialSidebar ? "grid-cols-[320px_1fr]" : "grid-cols-1"
-      } gap-5 md:gap-10 h-[calc(100%-4rem)] overflow-hidden`}
+      className={`grid ${
+        tutorialSidebar ? "md:grid-cols-[280px_1fr]" : "grid-cols-1"
+      } h-[calc(100%-4rem)] overflow-hidden relative`}
     >
       {/* sidebar */}
       <div
         className={`${
           !tutorialSidebar && "hidden"
-        } border rounded-md h-full overflow-hidden`}
+        } border-r h-full overflow-hidden absolute left-0 right-0 bottom-0 bg-neutral-900 md:bg-transparent z-10 md:relative`}
       >
         <div className="border-b px-5 h-16 flex items-center justify-between">
           <p className="text-lg">Contents</p>

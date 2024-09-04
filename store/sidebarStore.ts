@@ -12,5 +12,5 @@ export const adminDashSidebarAtom = atom<boolean>({
 
 export const tutorialSidebarAtom = atom<boolean>({
   key: "tutorialSidebarAtom",
-  default: true,
+  default: false,
 });

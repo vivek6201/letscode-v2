@@ -12,7 +12,7 @@ export default function MoveBack() {
     <CustomTooltip
       text="Go Back"
       trigger={
-        <Button variant={"ghost"} size={"icon"} onClick={() => router.back()}>
+        <Button variant={"outline"} size={"icon"} onClick={() => router.back()}>
           <ArrowLeft />
         </Button>
       }

@@ -17,10 +17,11 @@ import { Input } from "@/components/ui/input";
 import { registerAction } from "@/actions/register";
 import { toast } from "sonner";
 import CustomIcon from "../ui/custom-icon";
-import { X } from "lucide-react";
+import { Loader, X } from "lucide-react";
 
 export default function SignupForm() {
   const [error, setError] = useState<null | string>(null);
+  const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
@@ -34,11 +35,13 @@ export default function SignupForm() {
   });
 
   async function onSubmit(values: z.infer<typeof registerSchema>) {
+    setLoading(true);
     const res = await registerAction({ ...values });
     if (!res.success && res.message) {
       setError(res.message);
       toast.error(res.message);
     }
+    setLoading(false);
 
     toast.success(res.message);
   }
@@ -47,7 +50,7 @@ export default function SignupForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-y-4 w-11/12 my-5"
+        className="flex flex-col gap-y-4 w-full md:w-11/12 my-5"
       >
         {error ? (
           <div className="flex justify-between items-center rounded-md p-5 bg-red-700">
@@ -129,7 +132,14 @@ export default function SignupForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button
+          type="submit"
+          disabled={loading}
+          className="flex gap-2 items-center h-10"
+        >
+          {loading ? <Loader className="animate-spin" /> : null}
+          Submit
+        </Button>
       </form>
     </Form>
   );

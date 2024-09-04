@@ -5,7 +5,8 @@ import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "@/components/ui/sonner";
 import { Provider } from "@/components/Provider";
 import { GoogleAnalytics } from "@/components/analytics";
-
+import { Suspense } from "react";
+import SplashScreen from "@/components/Common/SplashScreen";
 
 const inter = Inter({ subsets: ["latin"] });
 

@@ -5,6 +5,9 @@ import { Content } from "@prisma/client";
 import React from "react";
 import MoveBack from "../../ui/move-back";
 import TiptapRenderer from "./TiptapRenderer";
+import { useRecoilState } from "recoil";
+import { tutorialSidebarAtom } from "@/store/sidebarStore";
+import { Button } from "@/components/ui/button";
 
 export default function ContentRenderer({
   nextContent,
@@ -17,16 +20,29 @@ export default function ContentRenderer({
   } | null;
   content: any;
 }) {
+  const [tutorialSidebar, setTutorialSidebar] =
+    useRecoilState(tutorialSidebarAtom);
 
   return (
-    <div className="border py-10 px-10 rounded-md h-full w-full overflow-y-auto">
-      <div className="flex gap-5 items-center">
+    <div className="p-8 w-full">
+      <div className="flex items-center justify-between">
         <MoveBack />
-        <p className="text-2xl font-bold">{content.title}</p>
+        {!tutorialSidebar ? (
+          <Button
+            variant={"outline"}
+            onClick={() => setTutorialSidebar(!tutorialSidebar)}
+          >
+            Show Contents
+          </Button>
+        ) : null}
+      </div>
+
+      <div>
+        <p className="text-3xl font-bold mt-8 mb-12 text-red-400">{content.title}</p>
       </div>
 
       {/* render tiptap content */}
-      <TiptapRenderer content={content.topicMetadata.content}/>
+      <TiptapRenderer content={content.topicMetadata.content} />
     </div>
   );
 }

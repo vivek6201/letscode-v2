@@ -59,10 +59,14 @@ export const navList = [
     name: "Tutorials",
     link:"/tutorials"
   },
-  {
-    name: "Courses",
-    link:"/courses"
-  },
+  // {
+  //   name: "Courses",
+  //   link:"/courses"
+  // },
+  // {
+  //   name: "Blogs",
+  //   link:"/blogs"
+  // },
   {
     name: "Contact",
     link:"/contact"

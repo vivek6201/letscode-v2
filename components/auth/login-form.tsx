@@ -15,16 +15,16 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { signIn, SignInResponse } from "next-auth/react";
-import { X } from "lucide-react";
+import { Loader, X } from "lucide-react";
 import CustomIcon from "../ui/custom-icon";
 import { usePathname, useRouter } from "next/navigation";
-import { Label } from "../ui/label";
 
 export default function LoginForm() {
   const [error, setError] = useState<null | SignInResponse>(null);
   const pathname = usePathname();
   const router = useRouter();
   const [isPassVisible, setIsPassVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -35,12 +35,14 @@ export default function LoginForm() {
   });
 
   async function onSubmit(values: z.infer<typeof loginSchema>) {
+    setLoading(true);
     const res = await signIn("credentials", {
       email: values.email,
       password: values.password,
       redirect: false,
     });
 
+    setLoading(false);
     if (pathname.includes("/login") && !res?.error) {
       router.push("/");
     }
@@ -54,7 +56,7 @@ export default function LoginForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-y-4 w-11/12 my-5"
+        className="flex flex-col gap-y-4 w-full md:11/12 my-5"
       >
         {error ? (
           <div className="flex justify-between items-center rounded-md p-5 bg-red-700">
@@ -101,7 +103,14 @@ export default function LoginForm() {
           )}
         />
 
-        <Button type="submit">Submit</Button>
+        <Button
+          type="submit"
+          disabled={loading}
+          className="flex gap-2 items-center h-10"
+        >
+          {loading ? <Loader className="animate-spin" /> : null}
+          Submit
+        </Button>
       </form>
     </Form>
   );

@@ -63,8 +63,8 @@ export default function AdminSidebar({
         </div>
 
         <div className=" flex justify-between items-center mb-5 gap-5">
-          <button className="px-10 py-[7px] rounded-md border-b w-8/12 font-roboto-mono border-red-800 bg-red-600 text-sm capitalize text-white">
-            Report Bug
+          <button className="h-10 rounded-md border-b w-8/12 font-roboto-mono border-red-800 bg-red-600 text-sm capitalize text-white">
+            Reported Bugs
           </button>
           <Button variant={"outline"} size={"icon"}>
             <ArrowLeftFromLine

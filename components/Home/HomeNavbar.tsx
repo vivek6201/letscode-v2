@@ -16,16 +16,20 @@ import Headroom from "react-headroom";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ModeToggle } from "../Common/ModeToogler";
-// import {
-//   Sheet,
-//   SheetContent,
-//   SheetDescription,
-//   SheetHeader,
-//   SheetTitle,
-//   SheetTrigger,
-// } from "@/components/ui/sheet";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 import HighlightedText from "../Common/HighlightedText";
 import { navList } from "@/constants/SidebarList";
+import CustomIcon from "../ui/custom-icon";
 
 const Navbar = () => {
   const session = useSession();
@@ -42,7 +46,7 @@ const Navbar = () => {
             <HighlightedText text="Code" />
           </Link>
 
-          <div className="flex gap-5 items-center justify-center">
+          <div className="md:flex gap-5 items-center justify-center hidden">
             {navList.map((item, index) => {
               return (
                 <Link href={item.link} key={index}>
@@ -95,69 +99,67 @@ const Navbar = () => {
           </div>
 
           {/* modify the code written below later as sheet is looking ugly in mobile screens */}
-          <div className="flex gap-2 md:hidden">
+          <div className="flex gap-2 items-center md:hidden">
             <ModeToggle />
-            {/* <Sheet>
-            <SheetTrigger asChild>
-              <Button variant={"outline"}>
-                <Menu />
-              </Button>
-            </SheetTrigger>
-            <SheetContent className="max-w-[50%] h-screen grid grid-rows-[10%_1fr]">
-              <SheetHeader>
-                <SheetTitle className="text-left text-xl mb-10">
-                  Lets Code
-                </SheetTitle>
-              </SheetHeader>
-              <div className="flex flex-col justify-between h-full">
-                <div className="grid grid-cols-1 gap-y-3">
-                  <Button
-                    variant={"ghost"}
-                    className="gap-4 flex justify-start"
-                    onClick={() => router.push("/profile")}
-                  >
-                    <User size={20} /> Profile
+            {!session.data?.user ? (
+              <Drawer>
+                <DrawerTrigger asChild>
+                  <Button variant={"outline"} size={"icon"}>
+                    <CustomIcon iconName={Menu} />
                   </Button>
-                  <Button
-                    variant={"ghost"}
-                    className="gap-4 flex justify-start"
-                    onClick={() => router.push("/blogs")}
-                  >
-                    <Book size={20} /> Blogs
-                  </Button>
-                  <Button
-                    variant={"ghost"}
-                    className="gap-4 flex justify-start"
-                    onClick={() => router.push("/tutorials")}
-                  >
-                    <Book size={20} /> Tutorials
-                  </Button>
-                </div>
-                <div className="grid grid-cols-1 gap-y-4">
-                  {!session.data ? (
-                    <Button onClick={async () => await signIn()}>Login</Button>
-                  ) : null}
+                </DrawerTrigger>
+                <DrawerContent className="">
+                  <DrawerHeader>
+                    <DrawerTitle>LetsCode</DrawerTitle>
+                    <DrawerDescription>Choose One</DrawerDescription>
+                  </DrawerHeader>
+                  <div className="flex flex-col gap-y-4 items-center my-10 text-lg">
+                    <Link href={"/tutorials"}>Tutorials</Link>
+                    <Link href={"/contact"}>Contact us</Link>
 
+                    <Link href={"/login"} className="text-red-500 font-medium">
+                      Login
+                    </Link>
+                  </div>
+                  <DrawerFooter>
+                    <DrawerClose>
+                      <Button variant="outline" className="w-10/12 h-10">
+                        Close
+                      </Button>
+                    </DrawerClose>
+                  </DrawerFooter>
+                </DrawerContent>
+              </Drawer>
+            ) : (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Avatar>
+                    <AvatarFallback className="select-none">
+                      {session.data?.user.name?.split("")[0]}
+                    </AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56" align="end">
+                  <DropdownMenuLabel>My Profile</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={() => router.push("/profile")}>
+                    <User className="mr-2 h-4 w-4" />
+                    <span>Profile</span>
+                  </DropdownMenuItem>
                   {session.data?.user.role === "Admin" ? (
-                    <Button
-                      variant={"outline"}
-                      className="flex justify-between items-center"
-                      onClick={() => router.push("/admin")}
-                    >
-                      Admin Panel <User />
-                    </Button>
+                    <DropdownMenuItem onClick={() => router.push("/admin")}>
+                      <Shield className="mr-2 h-4 w-4" />
+                      <span>Admin Panel</span>
+                    </DropdownMenuItem>
                   ) : null}
-
-                  <Button
-                    variant={"destructive"}
-                    className="flex justify-between items-center gap-2"
-                  >
-                    Report Bug <Bug size={20} />
-                  </Button>
-                </div>
-              </div>
-            </SheetContent>
-          </Sheet> */}
+                  <DropdownMenuItem className="mt-3">
+                    <Button className="w-full" onClick={async () => signOut()}>
+                      Logout
+                    </Button>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
           </div>
         </div>
       </div>
