@@ -36,9 +36,9 @@ const Navbar = () => {
 
   return (
     <Headroom>
-      <div className="border-b shadow">
+      <div className="bg-transparent">
         <div
-          className={`px-5 md:px-10 py-4 flex justify-between items-center backdrop-blur-md container`}
+          className={`px-5 md:px-10 py-4 flex justify-between items-center container`}
         >
           <Link href={"/"} className="font-bold text-2xl">
             Lets

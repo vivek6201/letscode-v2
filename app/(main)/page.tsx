@@ -6,10 +6,10 @@ import { auth } from "@/lib/auth";
 
 export default async function Home() {
   return (
-    <>
+    <div className="dark:bg-black min-h-screen">
       <HeroSection />
-      {/* <PopularTutorials /> */}
+      <PopularTutorials />
       <Footer />
-    </>
+    </div>
   );
 }

@@ -9,14 +9,9 @@ import { useRouter } from "next/navigation";
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "../ui/separator";
 import { signIn } from "next-auth/react";
-import { toast } from "sonner";
 
 export default function AuthComponent({ page }: { page: string }) {
   const router = useRouter();
